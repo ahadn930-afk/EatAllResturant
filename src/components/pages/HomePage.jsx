@@ -1,6 +1,7 @@
 // src/components/pages/HomePage.jsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Counter from "../views/HomeView/counter";
 
 const HomePage = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -133,6 +134,7 @@ const HomePage = () => {
 
   return (
     <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+      
       {/* Cart Button */}
       <div className="fixed top-14 right-1 z-50">
         <button className="bg-red-500 text-white px-6 py-3 rounded-full shadow-lg font-bold">
@@ -183,6 +185,7 @@ const HomePage = () => {
         <button type="button" className="text-white bg-dark box-border border border-transparent hover:bg-dark-strong focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Dark</button>
         <button type="button" className="text-heading bg-transparent box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Ghost</button>
       </div>
+      <Counter />
 
       {/* Search Bar */}
       <div className="max-w-md mx-auto my-10 px-2">
@@ -320,6 +323,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
+        
       )}
     </div>
   );
