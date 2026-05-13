@@ -6,7 +6,7 @@ import AboutPage from "./components/pages/AboutPage";
 import ContactPage from "./components/pages/ContactPage";
 import SigninPage from "./components/pages/SigninPage";
 import SignupPage from "./components/pages/SignupPage";
-import PageNotFound from "./components/pages/PageNotFound";
+import PageNotFound from "./components/pages/pagenotfound";
 import CreateItemPage from "./components/pages/createitempage";
 import ViewAllItemsPage from "./components/pages/viewallitemspage";
 import ViewSingleItemPage from "./components/pages/viewsingleitempage";
