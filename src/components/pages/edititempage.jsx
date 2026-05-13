@@ -1,3 +1,3 @@
-import EditItemView from "../views/EditItemView/EditItemView";
+import EditItemView from "../views/edititemview/edititemview";
 const EditItemPage = () => <EditItemView />;
 export default EditItemPage;

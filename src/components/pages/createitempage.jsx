@@ -1,3 +1,3 @@
-import CreateItemView from "../views/CreateItemView/CreateItemView";
+import CreateItemView from "../views/createitemview/createitemview";
 const CreateItemPage = () => <CreateItemView />;
 export default CreateItemPage;
