@@ -1,4 +1,3 @@
-// src/App.jsx
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
@@ -8,6 +7,10 @@ import ContactPage from "./components/pages/ContactPage";
 import SigninPage from "./components/pages/SigninPage";
 import SignupPage from "./components/pages/SignupPage";
 import PageNotFound from "./components/pages/PageNotFound";
+import CreateItemPage from "./components/pages/CreateItemPage";
+import ViewAllItemsPage from "./components/pages/ViewAllItemsPage";
+import ViewSingleItemPage from "./components/pages/ViewSingleItemPage";
+import EditItemPage from "./components/pages/EditItemPage";
 
 function App() {
   return (
@@ -19,6 +22,10 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/auth/login" element={<SigninPage />} />
         <Route path="/auth/register" element={<SignupPage />} />
+        <Route path="/menu" element={<ViewAllItemsPage />} />
+        <Route path="/menu/create" element={<CreateItemPage />} />
+        <Route path="/menu/:id" element={<ViewSingleItemPage />} />
+        <Route path="/menu/edit/:id" element={<EditItemPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
       <Footer />

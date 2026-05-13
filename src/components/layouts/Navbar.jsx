@@ -19,6 +19,12 @@ const Navbar = () => {
         <Link to="/contact">
           <li className="hover:text-black">Contact Us</li>
         </Link>
+        <Link to="/menu">
+          <li className="hover:text-black">Menu</li>
+        </Link>
+        <Link to="/menu/create">
+          <li className="hover:text-black">Add Item</li>
+        </Link>
       </div>
       <div className="flex gap-5 list-none">
         <Link to="/auth/login">
