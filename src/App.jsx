@@ -7,10 +7,10 @@ import ContactPage from "./components/pages/ContactPage";
 import SigninPage from "./components/pages/SigninPage";
 import SignupPage from "./components/pages/SignupPage";
 import PageNotFound from "./components/pages/PageNotFound";
-import CreateItemPage from "./components/pages/CreateItemPage";
-import ViewAllItemsPage from "./components/pages/ViewAllItemsPage";
-import ViewSingleItemPage from "./components/pages/ViewSingleItemPage";
-import EditItemPage from "./components/pages/EditItemPage";
+import CreateItemPage from "./components/pages/createitempage";
+import ViewAllItemsPage from "./components/pages/viewallitemspage";
+import ViewSingleItemPage from "./components/pages/viewsingleitempage";
+import EditItemPage from "./components/pages/edititempage";
 
 function App() {
   return (
