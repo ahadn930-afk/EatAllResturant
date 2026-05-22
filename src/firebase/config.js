@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAN2ep7Hn3faw4xywZTWRUG205XbkTuN-Q",
-  authDomain: "restaurant-menu-1afca.firebaseapp.com",
-  projectId: "restaurant-menu-1afca",
-  storageBucket: "restaurant-menu-1afca.firebasestorage.app",
-  messagingSenderId: "707977386431",
-  appId: "1:707977386431:web:adb3fa2adc49375612290a"
+  apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain:        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId:         import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket:     import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId:             import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
