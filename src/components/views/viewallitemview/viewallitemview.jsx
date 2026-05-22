@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllItems, deleteItem } from "../../../firebase/firestoreservice";
+import { useAuth } from "../../../context/AuthContext";
 
 const ViewAllItemsView = () => {
+  const { user, role } = useAuth();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,9 +29,14 @@ const ViewAllItemsView = () => {
     <div style={{ maxWidth: 800, margin: "40px auto", padding: "0 16px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h2>🍴 Restaurant Menu</h2>
-        <Link to="/menu/create" style={btnStyle}>+ Add Item</Link>
+        {/* Only admin sees Add Item button */}
+        {role === "admin" && (
+          <Link to="/menu/create" style={btnStyle}>+ Add Item</Link>
+        )}
       </div>
-      {items.length === 0 && <p>No items yet. Add your first menu item!</p>}
+
+      {items.length === 0 && <p>No items yet.</p>}
+
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 20 }}>
         {items.map((item) => (
           <div key={item.id} style={card}>
@@ -39,8 +46,22 @@ const ViewAllItemsView = () => {
             <p style={{ margin: "0 0 12px", fontSize: 13 }}>{item.description}</p>
             <div style={{ display: "flex", gap: 8 }}>
               <Link to={`/menu/${item.id}`} style={{ ...actionBtn, background: "#333" }}>View</Link>
-              <Link to={`/menu/edit/${item.id}`} style={{ ...actionBtn, background: "#f0a500" }}>Edit</Link>
-              <button onClick={() => handleDelete(item.id)} style={{ ...actionBtn, background: "#e44d26", border: "none", cursor: "pointer" }}>Delete</button>
+
+              {/* Admin can edit and delete any item */}
+              {role === "admin" && (
+                <>
+                  <Link to={`/menu/edit/${item.id}`} style={{ ...actionBtn, background: "#f0a500" }}>Edit</Link>
+                  <button onClick={() => handleDelete(item.id)} style={{ ...actionBtn, background: "#e44d26", border: "none", cursor: "pointer" }}>Delete</button>
+                </>
+              )}
+
+              {/* Normal user can only edit/delete their own items */}
+              {role === "user" && user && item.createdByEmail === user.email && (
+                <>
+                  <Link to={`/menu/edit/${item.id}`} style={{ ...actionBtn, background: "#f0a500" }}>Edit</Link>
+                  <button onClick={() => handleDelete(item.id)} style={{ ...actionBtn, background: "#e44d26", border: "none", cursor: "pointer" }}>Delete</button>
+                </>
+              )}
             </div>
           </div>
         ))}

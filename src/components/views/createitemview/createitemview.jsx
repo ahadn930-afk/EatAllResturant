@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createItem } from "../../../firebase/firestoreservice";
+import { useAuth } from "../../../context/AuthContext";
 
 const CreateItemView = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [form, setForm] = useState({ name: "", description: "", price: "", category: "" });
   const [loading, setLoading] = useState(false);
 
@@ -14,7 +16,13 @@ const CreateItemView = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await createItem(form);
+      await createItem({
+        ...form,
+        createdBy: user.displayName || user.email,
+        createdByEmail: user.email,
+        createdByUid: user.uid,
+        createdAt: new Date().toISOString(),
+      });
       navigate("/menu");
     } catch (err) {
       console.error(err);
@@ -25,6 +33,16 @@ const CreateItemView = () => {
   return (
     <div style={{ maxWidth: 500, margin: "40px auto", padding: "0 16px" }}>
       <h2>🍽️ Add Menu Item</h2>
+
+      {user && (
+        <div style={{ background: "#f0f0f0", padding: "10px 16px", borderRadius: 8, marginBottom: 16 }}>
+          <p style={{ margin: 0, fontSize: 14 }}>
+            Adding as: <strong>{user.displayName || user.email}</strong>
+          </p>
+          <p style={{ margin: 0, fontSize: 12, color: "#666" }}>{user.email}</p>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         <input name="name" placeholder="Item Name" value={form.name} onChange={handleChange} required style={inp} />
         <input name="category" placeholder="Category (e.g. Burger, Pizza)" value={form.category} onChange={handleChange} required style={inp} />

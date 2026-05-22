@@ -1,18 +1,29 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getSingleItem, updateItem } from "../../../firebase/firestoreservice";
+import { useAuth } from "../../../context/AuthContext";
 
 const EditItemView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user, role } = useAuth();
   const [form, setForm] = useState({ name: "", description: "", price: "", category: "" });
   const [loading, setLoading] = useState(false);
+  const [unauthorized, setUnauthorized] = useState(false);
 
   useEffect(() => {
     getSingleItem(id).then((snap) => {
-      if (snap.exists()) setForm(snap.data());
+      if (snap.exists()) {
+        const data = snap.data();
+        // Block normal user if they don't own this item
+        if (role === "user" && data.createdByEmail !== user?.email) {
+          setUnauthorized(true);
+          return;
+        }
+        setForm(data);
+      }
     });
-  }, [id]);
+  }, [id, role, user]);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -28,6 +39,14 @@ const EditItemView = () => {
     }
     setLoading(false);
   };
+
+  if (unauthorized) return (
+    <div style={{ textAlign: "center", marginTop: 60 }}>
+      <h2>⛔ Unauthorized</h2>
+      <p>You can only edit your own items.</p>
+      <button onClick={() => navigate("/menu")} style={btn}>Go Back</button>
+    </div>
+  );
 
   return (
     <div style={{ maxWidth: 500, margin: "40px auto", padding: "0 16px" }}>
